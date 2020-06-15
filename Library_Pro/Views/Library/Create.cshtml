@@ -1,0 +1,29 @@
+﻿@model Core.Library
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Library</h1>
+
+<form method="post">
+    <div class="row" style="margin-bottom:15px">
+        <div class="col">
+            <label asp-for="Name"></label>
+            <input class="form-control" asp-for="Name">
+            <span class="text-danger" asp-validation-for="Name"></span>
+        </div>
+        <div class="col">
+            <label asp-for="Address"></label>
+            <input class="form-control" asp-for="Address">
+            <span class="text-danger" asp-validation-for="Address"></span>
+        </div>
+        <div class="col">
+            <label asp-for="City"></label>
+            <input class="form-control" asp-for="City">
+            <span class="text-danger" asp-validation-for="City"></span>
+        </div>
+    </div>
+    <button class="btn btn-success" type="submit">Save</button>
+    <a class="btn btn-primary" asp-controller="Library" asp-action="Index">Cancel</a>
+</form>
+

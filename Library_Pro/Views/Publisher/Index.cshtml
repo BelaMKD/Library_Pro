@@ -1,0 +1,67 @@
+﻿@model Library_Pro.Models.PublishersIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+    var i = 1;
+}
+
+<h1>List Of Publishers</h1>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Country</th>
+            <th scope="col">Books</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Publishers.Any())
+        {
+            @foreach (var publisher in Model.Publishers)
+            {
+                <tr>
+
+                    <th scope="row">@i</th>
+                    <td>@publisher.Name</td>
+                    <td>@publisher.Country</td>
+                    @if (publisher.Books.Any())
+                    {
+                        <td>
+                            @foreach (var book in publisher.Books)
+                            {
+                                @book.Title
+                            }
+                        </td>
+                    }
+                    else
+                    {
+                        <td>No Books</td>
+                    }
+                    <td>
+                        <a class="btn btn-primary" asp-route-publisherId="@publisher.Id" asp-controller="Publisher" asp-action="Edit">Edit</a>
+                        <a class="btn btn-danger" asp-route-publisherId="@publisher.Id" asp-controller="Publisher" asp-action="Delete">Delete</a>
+                    </td>
+                </tr>
+                i++;
+
+            }
+
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">Nothing To Display</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-success" asp-controller="Publisher" asp-action="Create">Create Publisher</a>
+
+@if (TempData.Keys.Contains("Message"))
+{
+    <div style="margin-top:5px" class="alert alert-info">@TempData["Message"]</div>
+}
+

@@ -1,0 +1,53 @@
+﻿@model Library_Pro.Models.LibraryIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+    var i = 1;
+}
+
+<h1>List Of Libraries</h1>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">City</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Libraries.Any())
+        {
+            @foreach (var library in Model.Libraries)
+            {
+                <tr>
+
+                    <th scope="row">@i</th>
+                    <td>@library.Name</td>
+                    <td>@library.Address</td>
+                    <td>@library.City</td>
+                    <td>
+                        <a class="btn btn-info" asp-route-libraryId="@library.Id" asp-controller="Library" asp-action="Detail">Detail</a>
+                        <a class="btn btn-primary" asp-route-libraryId="@library.Id" asp-controller="Library" asp-action="Edit">Edit</a>
+                        <a class="btn btn-danger" asp-route-libraryId="@library.Id" asp-controller="Library" asp-action="Delete">Delete</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">Nothing To Display</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-success" asp-controller="Library" asp-action="Create">Create Library</a>
+
+@if (TempData.Keys.Contains("Message"))
+{
+    <div style="margin-top:5px" class="alert alert-info">@TempData["Message"]</div>
+}

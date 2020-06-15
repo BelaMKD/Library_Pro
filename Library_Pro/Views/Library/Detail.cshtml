@@ -1,0 +1,50 @@
+﻿@model Core.Library
+@{
+    ViewData["Title"] = "Detail";
+    var i = 1;
+}
+
+<h1>Library: @Model.Name</h1>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Book</th>
+            <th scope="col">Number Of Copies</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.BookCopies.Any())
+        {
+            @foreach (var bookCopies in Model.BookCopies)
+            {
+                <tr>
+
+                    <th scope="row">@i</th>
+                    <td>@bookCopies.Book.Title</td>
+                    <td>@bookCopies.NumberOfCopies</td>
+                    <td>
+                        <a class="btn btn-primary" asp-route-bookCopiesId="@bookCopies.Id" asp-controller="BookCopies" asp-action="Edit">Edit</a>
+                        <a class="btn btn-danger" asp-route-bookCopiesId="@bookCopies.Id" asp-controller="BookCopies" asp-action="Delete">Delete</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">Nothing To Display</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-success" asp-route-libraryId="@Model.Id" asp-controller="BookCopies" asp-action="Create">Add Book Copies</a>
+
+@if (TempData.Keys.Contains("Message"))
+{
+    <div style="margin-top:5px" class="alert alert-info">@TempData["Message"]</div>
+}

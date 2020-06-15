@@ -1,0 +1,27 @@
+﻿@model Library_Pro.Models.BookCopiesCreateEditViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+    <form method="post">
+        <input type="hidden" asp-for="BookCopies.LibraryId" />
+        <div class="row" style="margin-bottom:15px">
+            <div class="col">
+                <label asp-for="BookCopies.BookId"></label>
+                <select class="form-control" asp-for="BookCopies.BookId" asp-items="Model.Books">
+                    <option value="">Choose Book</option>
+                </select>
+                <span class="text-danger" asp-validation-for="BookCopies.BookId"></span>
+            </div>
+            <div class="col">
+                <label asp-for="BookCopies.NumberOfCopies"></label>
+                <input class="form-control" asp-for="BookCopies.NumberOfCopies">
+                <span class="text-danger" asp-validation-for="BookCopies.NumberOfCopies"></span>
+            </div>
+
+        </div>
+        <button class="btn btn-success" type="submit">Save</button>
+        <a class="btn btn-primary" asp-route-libraryId="@Model.BookCopies.LibraryId" asp-controller="Library" asp-action="Detail">Cancel</a>
+    </form>
+
+

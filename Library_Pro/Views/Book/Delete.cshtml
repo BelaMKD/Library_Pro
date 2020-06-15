@@ -1,0 +1,12 @@
+﻿@model Core.Book
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Do you want to delete @Model.Title ?</h1>
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+    <button class="btn btn-danger">Yes</button>
+    <a class="btn btn-primary" asp-controller="Book" asp-action="Index">No</a>
+</form>
+

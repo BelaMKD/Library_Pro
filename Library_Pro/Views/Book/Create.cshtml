@@ -1,0 +1,51 @@
+﻿@model Library_Pro.Models.BookCreateEditViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Book</h1>
+
+<form method="post">
+    <div class="row">
+        <div class="col">
+            <label asp-for="Book.Title"></label>
+            <input class="form-control" asp-for="Book.Title">
+            <span class="text-danger" asp-validation-for="Book.Title"></span>
+        </div>
+        <div class="col">
+            <label asp-for="Book.NumberOfPages"></label>
+            <input class="form-control" asp-for="Book.NumberOfPages">
+            <span class="text-danger" asp-validation-for="Book.NumberOfPages"></span>
+        </div>
+        <div class="col">
+            <label asp-for="Book.YearOfIssue"></label>
+            <input class="form-control" asp-for="Book.YearOfIssue">
+            <span class="text-danger" asp-validation-for="Book.YearOfIssue"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label asp-for="AddPublisher"></label>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 15px;">
+        @for (int i = 0; i < Model.AddPublisher.Count(); i++)
+        {
+            <div class="col">
+
+                <div class="col-sm-2">
+                    <div class="form-check" style="margin-bottom:20px;">
+                        <input type="hidden" asp-for="@Model.AddPublisher[i].Value" />
+                        <input class="form-check-input" type="checkbox" asp-for="AddPublisher[i].Selected">
+                        <label class="form-check-label">@Model.AddPublisher[i].Text</label>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+    <button class="btn btn-success" type="submit">Save</button>
+    <a class="btn btn-primary" asp-controller="Book" asp-action="Index">Cancel</a>
+</form>
+
+

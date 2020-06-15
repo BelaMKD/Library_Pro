@@ -1,0 +1,66 @@
+﻿@model Library_Pro.Models.BookIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+    var i = 1;
+}
+
+<h1>List Of Books</h1>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Year Of Issue</th>
+            <th scope="col">Number Of Pages</th>
+            <th scope="col">Publishers</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Books.Any())
+        {
+            @foreach (var book in Model.Books)
+            {
+                <tr>
+
+                    <th scope="row">@i</th>
+                    <td>@book.Title</td>
+                    <td>@book.YearOfIssue.Year</td>
+                    <td>@book.NumberOfPages</td>
+                    @if (book.Publisers.Any())
+                    {
+                        <td>
+                            @foreach (var publisher in book.Publisers)
+                            {
+                                @publisher.Name
+                            }
+                        </td>
+                    }
+                    else
+                    {
+                        <td>No Publishers</td>
+                    }
+                    <td>
+                        <a class="btn btn-primary" asp-route-bookId="@book.Id" asp-controller="Book" asp-action="Edit">Edit</a>
+                        <a class="btn btn-danger" asp-route-bookId="@book.Id" asp-controller="Book" asp-action="Delete">Delete</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">Nothing To Display</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-success" asp-controller="Book" asp-action="Create">Create Book</a>
+
+@if (TempData.Keys.Contains("Message"))
+{
+    <div style="margin-top:5px" class="alert alert-info">@TempData["Message"]</div>
+}
