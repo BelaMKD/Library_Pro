@@ -10,8 +10,8 @@ namespace Library_Pro.Models
     public class LendingCreateEditViewModel
     {
         public Lending Lending { get; set; }
-        public int bookCopiesId { get; set; }
-        public int libraryId { get; set; }
+        public int BookCopiesId { get; set; }
+        public int LibraryId { get; set; }
         public List<SelectListItem> Clients { get; set; }
     }
 }

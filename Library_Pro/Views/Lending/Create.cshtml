@@ -6,8 +6,8 @@
 <h1>Create</h1>
 
 <form method="post">
-    <input type="hidden" asp-for="libraryId" />
-    <input type="hidden" asp-for="bookCopiesId" />
+    <input type="hidden" asp-for="LibraryId" />
+    <input type="hidden" asp-for="BookCopiesId" />
     <input type="hidden" asp-for="Lending.BookId" />
     <div class="row">
         <div class="col">
@@ -34,6 +34,6 @@
         </div>
     </div>
     <button class="btn btn-success" type="submit">Save</button>
-    <a class="btn btn-primary" asp-controller="Library" asp-action="Detail" asp-route-libraryId="@Model.libraryId">Cancel</a>
+    <a class="btn btn-primary" asp-controller="Library" asp-action="Detail" asp-route-libraryId="@Model.LibraryId">Cancel</a>
 </form>
 

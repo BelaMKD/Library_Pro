@@ -12,6 +12,8 @@ namespace Data.Interface
         Lending DeleteLenging(int lendingId);
         Lending GetLendingById(int lendingId);
         IEnumerable<Lending> GetLendings();
+        IEnumerable<Lending> GetLendingsReturned(int libraryId);
+        IEnumerable<Lending> GetLendingsNotReturned(int libraryId);
         int Commit();
     }
 }

@@ -14,6 +14,7 @@ namespace Core
         public DateTime YearOfIssue { get; set; }
         [Required]
         public int NumberOfPages { get; set; }
+        public BookCopies BookCopies { get; set; }
         public List<BookPublishers> BookPublishers { get; set; }
         public Book()
         {

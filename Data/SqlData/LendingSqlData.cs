@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Data.SqlData
@@ -50,6 +51,28 @@ namespace Data.SqlData
         {
             return dbContext.Lendings
                 .ToList();
+        }
+
+        public IEnumerable<Lending> GetLendingsNotReturned(int libraryId)
+        {
+            var tempLending = dbContext.Lendings
+                .Include(x=>x.Client)
+                .Include(x => x.Book)
+                .ThenInclude(y => y.BookCopies)
+                .ThenInclude(z => z.Library)
+                .Where(x => x.Book.BookCopies.LibraryId == libraryId);
+            return tempLending.Where(x => x.DatumVratena == null).ToList();
+        }
+
+        public IEnumerable<Lending> GetLendingsReturned(int libraryId)
+        {
+            var tempLending = dbContext.Lendings
+                .Include(x => x.Client)
+                .Include(x => x.Book)
+                .ThenInclude(y => y.BookCopies)
+                .ThenInclude(z => z.Library)
+                .Where(x => x.Book.BookCopies.LibraryId == libraryId);
+            return tempLending.Where(x => x.DatumVratena != null).ToList();
         }
 
         public Lending UpdateLending(Lending lending)

@@ -24,22 +24,28 @@ namespace Library_Pro.Controllers
             this.bookCopiesData = bookCopiesData;
             this.bookData = bookData;
         }
-        public IActionResult Index()
+        public IActionResult Returned(int libraryId)
         {
-            return View();
+            var returnedLendings = lendingData.GetLendingsReturned(libraryId);
+            return View(returnedLendings);
+        }
+        public IActionResult NotReturned(int libraryId)
+        {
+            var notReturnedLendings = lendingData.GetLendingsNotReturned(libraryId);
+            return View(notReturnedLendings);
         }
         [HttpGet]
         public IActionResult Create(int bookCopiesId)
         {
             var bookCopies = bookCopiesData.GetBookCopiesById(bookCopiesId);
             var model = new LendingCreateEditViewModel();
-            model.bookCopiesId = bookCopiesId;
+            model.BookCopiesId = bookCopiesId;
             model.Lending = new Lending()
             {
                 BookId = bookCopies.BookId,
                 Book = bookCopies.Book
             };
-            model.libraryId = bookCopies.LibraryId;
+            model.LibraryId = bookCopies.LibraryId;
             model.Clients = clientData.GetClients().Select(x => new SelectListItem
             {
                 Value = x.Id.ToString(),
@@ -55,11 +61,11 @@ namespace Library_Pro.Controllers
                 model.Lending.Client = clientData.GetClientById(model.Lending.ClientId);
                 model.Lending.Book = bookData.GetBookByid(model.Lending.BookId);
                 lendingData.CreateLending(model.Lending);
-                var bookCopies = bookCopiesData.GetBookCopiesById(model.bookCopiesId);
+                var bookCopies = bookCopiesData.GetBookCopiesById(model.BookCopiesId);
                 bookCopies.NumberOfCopies -= 1;
                 lendingData.Commit();
                 TempData["Message"] = "The object is created";
-                return RedirectToAction("Detail", "Library", new { libraryId = model.libraryId });
+                return RedirectToAction("Detail", "Library", new { libraryId = model.LibraryId });
             }
             model.Clients = clientData.GetClients().Select(x => new SelectListItem
             {

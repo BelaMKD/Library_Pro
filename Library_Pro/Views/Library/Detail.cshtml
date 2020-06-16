@@ -44,6 +44,8 @@
 </table>
 
 <a class="btn btn-success" asp-route-libraryId="@Model.Id" asp-controller="BookCopies" asp-action="Create">Add Book Copies</a>
+<a class="btn btn-info" asp-route-libraryId="@Model.Id" asp-controller="Lending" asp-action="Returned">Returned Books</a>
+<a class="btn btn-info" asp-route-libraryId="@Model.Id" asp-controller="Lending" asp-action="NotReturned">Not Returned Books</a>
 
 @if (TempData.Keys.Contains("Message"))
 {
