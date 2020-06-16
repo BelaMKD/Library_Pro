@@ -12,10 +12,10 @@ namespace Core
         public string Name { get; set; }
         [Required]
         public string Country { get; set; }
-        public List<Book> Books { get; set; }
+        public List<BookPublishers> BookPublishers { get; set; }
         public Publisher()
         {
-            Books = new List<Book>();
+            BookPublishers = new List<BookPublishers>();
         }
     }
 }

@@ -47,6 +47,8 @@ namespace Data.SqlData
         {
             return dbContext.BookCopies
                 .Include(x=>x.Book)
+                .ThenInclude(y=>y.BookPublishers)
+                .Include(x=>x.Library)
                 .SingleOrDefault(x => x.Id == bookCopiesId);
         }
 

@@ -1,6 +1,7 @@
 ﻿using Core;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 
 namespace Data
 {
@@ -18,10 +19,7 @@ namespace Data
         public DbSet<Publisher> Publisers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Book>().HasMany(publisher => publisher.Publisers);
-            modelBuilder.Entity<Publisher>().HasMany(book => book.Books);
-
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<BookPublishers>().HasKey(x => new { x.PublisherId, x.BookId });
         }
     }
 }

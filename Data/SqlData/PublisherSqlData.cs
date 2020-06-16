@@ -47,7 +47,8 @@ namespace Data.SqlData
         public IEnumerable<Publisher> GetPublisers()
         {
             return dbContext.Publisers
-                .Include(x=>x.Books)
+                .Include(x=>x.BookPublishers)
+                .ThenInclude(z=>z.Book)
                 .ToList();
         }
 

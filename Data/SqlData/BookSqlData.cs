@@ -41,14 +41,16 @@ namespace Data.SqlData
         public Book GetBookByid(int bookId)
         {
             return dbContext.Books
-                .Include(x=>x.Publisers)
+                .Include(x => x.BookPublishers)
+                .ThenInclude(z => z.Publisher)
                 .SingleOrDefault(x => x.Id == bookId);
         }
 
         public IEnumerable<Book> GetBooks()
         {
             return dbContext.Books
-                .Include(x=>x.Publisers)
+                .Include(x=>x.BookPublishers)
+                .ThenInclude(z=>z.Publisher)
                 .ToList();
         }
 

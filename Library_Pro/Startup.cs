@@ -36,6 +36,7 @@ namespace Library_Pro
             services.AddScoped<ILibraryData, LibrarySqlData>();
             services.AddScoped<IBookCopiesData, BookCopiesSqlData>();
             services.AddScoped<IClientData, ClientSqlData>();
+            services.AddScoped<ILendingData, LendingSqlData>();
 
             services.AddDbContextPool<LibraryDbContext>(option =>
             option.UseSqlServer(Configuration.GetConnectionString("LibraryProDb")));

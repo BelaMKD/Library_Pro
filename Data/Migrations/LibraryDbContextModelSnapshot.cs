@@ -29,9 +29,6 @@ namespace Data.Migrations
                     b.Property<int>("NumberOfPages")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PublisherId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -40,8 +37,6 @@ namespace Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PublisherId");
 
                     b.ToTable("Books");
                 });
@@ -71,6 +66,21 @@ namespace Data.Migrations
                     b.ToTable("BookCopies");
                 });
 
+            modelBuilder.Entity("Core.BookPublishers", b =>
+                {
+                    b.Property<int>("PublisherId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PublisherId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("BookPublishers");
+                });
+
             modelBuilder.Entity("Core.Client", b =>
                 {
                     b.Property<int>("Id")
@@ -79,12 +89,15 @@ namespace Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Phone")
@@ -108,7 +121,7 @@ namespace Data.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DatumVratena")
+                    b.Property<DateTime?>("DatumVratena")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DatumZajmuvanje")
@@ -154,9 +167,6 @@ namespace Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BookId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -167,16 +177,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
-
                     b.ToTable("Publisers");
-                });
-
-            modelBuilder.Entity("Core.Book", b =>
-                {
-                    b.HasOne("Core.Publisher", null)
-                        .WithMany("Books")
-                        .HasForeignKey("PublisherId");
                 });
 
             modelBuilder.Entity("Core.BookCopies", b =>
@@ -194,6 +195,21 @@ namespace Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Core.BookPublishers", b =>
+                {
+                    b.HasOne("Core.Book", "Book")
+                        .WithMany("BookPublishers")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Publisher", "Publisher")
+                        .WithMany("BookPublishers")
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Core.Lending", b =>
                 {
                     b.HasOne("Core.Book", "Book")
@@ -207,13 +223,6 @@ namespace Data.Migrations
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Core.Publisher", b =>
-                {
-                    b.HasOne("Core.Book", null)
-                        .WithMany("Publisers")
-                        .HasForeignKey("BookId");
                 });
 #pragma warning restore 612, 618
         }

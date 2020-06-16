@@ -14,10 +14,10 @@ namespace Core
         public DateTime YearOfIssue { get; set; }
         [Required]
         public int NumberOfPages { get; set; }
-        public List<Publisher> Publisers { get; set; }
+        public List<BookPublishers> BookPublishers { get; set; }
         public Book()
         {
-            Publisers = new List<Publisher>();
+            BookPublishers = new List<BookPublishers>();
         }
     }
 }

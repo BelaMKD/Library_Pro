@@ -49,7 +49,10 @@ namespace Library_Pro.Controllers
                 {
                     if (publisher.Selected)
                     {
-                        model.Book.Publisers.Add(publisherData.GetPubliserById(Convert.ToInt32(publisher.Value)));
+                        model.Book.BookPublishers.Add(new BookPublishers
+                        {
+                            Publisher = publisherData.GetPubliserById(Convert.ToInt32(publisher.Value))
+                        });
                     }
                 }
                 bookData.CreateBook(model.Book);
@@ -82,9 +85,9 @@ namespace Library_Pro.Controllers
             }
             foreach (var item in checkedPublishers)
             {
-                foreach (var publisher in model.Book.Publisers)
+                foreach (var publisher in model.Book.BookPublishers)
                 {
-                    if (Convert.ToInt32(item.Value) == publisher.Id)
+                    if (Convert.ToInt32(item.Value) == publisher.PublisherId)
                     {
                         item.Selected = true;
                     }
@@ -102,16 +105,19 @@ namespace Library_Pro.Controllers
                 tempBook.Title = model.Book.Title;
                 tempBook.NumberOfPages = model.Book.NumberOfPages;
                 tempBook.YearOfIssue = model.Book.YearOfIssue;
-                if (tempBook.Publisers.Any())
+                if (tempBook.BookPublishers.Any())
                 {
-                    tempBook.Publisers.Clear();
+                    tempBook.BookPublishers.Clear();
 
                 }
                 foreach (var publisher in model.AddPublisher)
                 {
                     if (publisher.Selected)
                     {
-                        tempBook.Publisers.Add(publisherData.GetPubliserById(Convert.ToInt32(publisher.Value)));
+                        tempBook.BookPublishers.Add(new BookPublishers
+                        {
+                            Publisher = publisherData.GetPubliserById(Convert.ToInt32(publisher.Value))
+                        });
                     }
                 }
                 bookData.UpdateBook(tempBook);
@@ -131,9 +137,9 @@ namespace Library_Pro.Controllers
             }
             foreach (var item in checkedPublishers)
             {
-                foreach (var publisher in model.Book.Publisers)
+                foreach (var publisher in model.Book.BookPublishers)
                 {
-                    if (Convert.ToInt32(item.Value) == publisher.Id)
+                    if (Convert.ToInt32(item.Value) == publisher.PublisherId)
                     {
                         item.Selected = true;
                     }

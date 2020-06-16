@@ -26,12 +26,12 @@
                     <th scope="row">@i</th>
                     <td>@publisher.Name</td>
                     <td>@publisher.Country</td>
-                    @if (publisher.Books.Any())
+                    @if (publisher.BookPublishers.Any())
                     {
                         <td>
-                            @foreach (var book in publisher.Books)
+                            @foreach (var book in publisher.BookPublishers)
                             {
-                                @book.Title
+                                @book.Book.Title
                             }
                         </td>
                     }

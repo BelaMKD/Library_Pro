@@ -28,12 +28,12 @@
                     <td>@book.Title</td>
                     <td>@book.YearOfIssue.Year</td>
                     <td>@book.NumberOfPages</td>
-                    @if (book.Publisers.Any())
+                    @if (book.BookPublishers.Any())
                     {
                         <td>
-                            @foreach (var publisher in book.Publisers)
+                            @foreach (var publisher in book.BookPublishers)
                             {
-                                @publisher.Name
+                                @publisher.Publisher.Name
                             }
                         </td>
                     }
