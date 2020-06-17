@@ -44,6 +44,8 @@ namespace Data.SqlData
         public Lending GetLendingById(int lendingId)
         {
             return dbContext.Lendings
+                .Include(x=>x.Client)
+                .Include(x=>x.Book)
                 .SingleOrDefault(x => x.Id == lendingId);
         }
 

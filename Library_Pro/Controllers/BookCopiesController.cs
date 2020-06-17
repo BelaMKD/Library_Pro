@@ -155,7 +155,7 @@ namespace Library_Pro.Controllers
                 tempBookCopies.NumberOfCopies = model.BookCopies.NumberOfCopies;
                 bookCopiesData.UpdateBookCopies(tempBookCopies);
                 bookCopiesData.Commit();
-                TempData["Message"] = "The object is deleted";
+                TempData["Message"] = "The object is edited";
                 return RedirectToAction("Detail", "Library", new { libraryId = model.BookCopies.LibraryId });
             }
             var booksInLibrary = new List<Book>();

@@ -16,7 +16,7 @@ namespace Core
         public Client Client { get; set; }
         [Required, DataType(DataType.Date), DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:D}")]
         public DateTime DatumZajmuvanje { get; set; }
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date), DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:D}")]
         public DateTime? DatumVratena { get; set; }
     }
 }

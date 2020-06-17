@@ -1,0 +1,40 @@
+﻿@model Library_Pro.Models.LendingCreateEditViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="Lending.Id" />
+    <input type="hidden" asp-for="LibraryId" />
+    <input type="hidden" asp-for="BookCopiesId" />
+    <input type="hidden" asp-for="Lending.BookId" />
+    <div class="row">
+        <div class="col">
+            <label asp-for="Lending.Book.Title"></label>
+            <input class="form-control" asp-for="Lending.Book.Title" readonly>
+        </div>
+        <div class="col">
+            <label asp-for="Lending.ClientId"></label>
+            <select class="form-control" asp-for="Lending.ClientId" asp-items="Model.Clients">
+                <option value="">Choose Client</option>
+            </select>
+            <span class="text-danger" asp-validation-for="Lending.ClientId"></span>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 15px;">
+        <div class="col">
+            <label asp-for="Lending.DatumZajmuvanje"></label>
+            <input class="form-control" asp-for="Lending.DatumZajmuvanje">
+            <span class="text-danger" asp-validation-for="Lending.DatumZajmuvanje"></span>
+        </div>
+        <div class="col">
+            <label asp-for="Lending.DatumVratena"></label>
+            <input class="form-control" asp-for="Lending.DatumVratena">
+        </div>
+    </div>
+    <button class="btn btn-success" type="submit">Save</button>
+    <a class="btn btn-primary" asp-controller="Lending" asp-action="NotReturned" asp-route-libraryId="@Model.LibraryId">Cancel</a>
+</form>
+
